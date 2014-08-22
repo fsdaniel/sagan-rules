@@ -1,0 +1,90 @@
+# Sagan true-custom.rules
+# Copyright (c) 2009-2012, Trueserver B.V. <www.true.nl>
+# All rights reserved.
+#
+# Please submit any custom rules or ideas to sagan-submit@quadrantsec.com or the sagan-sigs mailing list
+#
+#*************************************************************
+#  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+#  following conditions are met:
+#
+#  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+#    disclaimer.
+#  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+#    following disclaimer in the documentation and/or other materials provided with the distribution.
+#  * Neither the name of the nor the names of its contributors may be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES,
+#  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+#  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#*************************************************************
+#
+
+
+# watching for events we might find intresting to note to SysOps
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[MPT-STATUS] Non-optimal RAID status"; program: mtp-statusd; content: "non-optimal RAID status"; classtype: hardware-event; sid: 6660020; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Process was killed"; content: "Killed"; classtype: program-error; sid: 6660050; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] SYN flooding"; content: "SYN flooding"; classtype: system-event; sid: 6660060; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Segfault"; content: "segfault"; classtype: program-error; sid: 6660080; rev:1;)
+
+#alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Panic"; content: "panic"; classtype: program-error; sid: 6660083; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] OOM killer event"; content: "Out of memory"; classtype: program-error; sid: 6660100; rev:1;)
+
+#alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[TCP wrappers] warning in /etc/hosts.(deny|allow)"; content: "warning: /etc/hosts."; classtype: configuration-error; sid: 6660090; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Task blocking"; content: "blocked for more than"; classtype: program-error; sid: 6660091; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] KVM snapshot failed"; content: "KVM snapshot failed"; classtype: program-error; sid: 6660092; rev:1;)
+
+#alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] NF conntrack trigger"; content: "nf_conntrack"; classtype: system-event; sid: 6660093; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[TRUE-ADMIN] Mail not getting imported to the admin!"; content: "Mail not importing into Admin. Check the Phoenix App importer"; classtype: program-error; sid: 6660094; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[TRUE-ADMIN] Monitoring config broken!"; content: "Monitoring configuration broken. Immediate action required."; classtype: program-error; sid: 6660095; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Process crash detected"; content: "Call Trace"; classtype: program-error; sid: 6660096; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[POSTFIX] virtual.db older then source"; content: "virtual.db is older than source"; program: postfix; classtype: program-error; sid: 6660097; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[MYSQL] Tabled marked as crashed"; content: "is marked as crashed and should be repaired"; classtype: program-error; sid: 6660098; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[MegaRAID] Unexpected reset"; content: "megaraid_sas: Reset"; classtype: hardware-event; sid: 6660099; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[KEEPALIVED] Entering FAULT STATE"; content: "Entering FAULT STATE"; program: Keepalived_vrrp; classtype: system-event; sid: 6660200; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[KEEPALIVED] Transition to MASTER STATE"; content: "Transition to MASTER STATE"; program: Keepalived_vrrp; classtype: system-event; sid: 6660201; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[KEEPALIVED] Entering BACKUP STATE"; content: "Entering BACKUP STATE"; program: Keepalived_vrrp; classtype: system-event; sid: 6660202; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[KEEPALIVED] Has ignored received advertisment(s)"; content: "ignoring received advertisment..."; program: Keepalived_vrrp; classtype: system-event; sid: 6660203; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[JBD] Spotted dirty metadata, possible filesystem risk"; content: "Spotted dirty metadata buffer"; program: kernel; classtype: system-event; sid: 6660204; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Link up with 100 Mbit"; content: "100 Mbit"; program: kernel; classtype: hardware-event; sid: 6660205; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] Packet returned from same source"; content: "with own address as source address"; program: kernel; classtype: hardware-event; sid: 6660206; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[SYSTEM] PHP-FPM limit reached"; content: "server reached pm.max_"; classtype: program-error; sid: 6660207; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg: "[MYSQL] Max MySQL connections almost reached"; content: "Max MySQL connections almost reached"; classtype: program-error; sid: 6660208; rev:1;)
+
+
+
+
+# override default rules.
+
+# proftpd, added lognorm
+#alert tcp $EXTERNAL_NET any -> $HOME_NET $FTP_PORT (msg:"[PROFTPD] Session opened"; content: "FTP session opened"; classtype: not-suspicious; program: proftpd; reference: url,wiki.quadrantsec.com/bin/view/Main/5000078; sid: 5000078; rev:2; normalize: proftpd;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET $FTP_PORT (msg:"[PROFTPD] Attempt to login as a non-existent user"; content: "no such user"; classtype: unsuccessful-user; program: proftpd; reference: url,wiki.quadrantsec.com/bin/view/Main/5000080; sid: 5000080; rev:3; normalize: proftpd;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET $FTP_PORT (msg:"[PROFTPD] Authentication success"; content: "Login successful"; classtype: successful-user; program: proftpd; reference: url,wiki.quadrantsec.com/bin/view/Main/5000082; sid: 5000082; rev:2; normalize: proftpd;)
